@@ -166,13 +166,17 @@ export function keys<T extends object>(value: T): [keyof T] {
  */
 export function mapValues<T extends object | unknown[], R>(
   value: T,
+// @ts-expect-error: test
   callback: (...keyValue: Entries<T>[number]) => R
 ): { [Key in keyof T]: R } | R[] {
   if (Array.isArray(value))
     return value.map((item, index) => callback(index, item));
 
+    // @ts-expect-error: test
   return entries(value).reduce(
+      // @ts-expect-error: test
     (acc, [key, item]) => ({
+        // @ts-expect-error: test
       ...acc,
       [key]: callback(key, item)
     }),

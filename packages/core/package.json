@@ -1,10 +1,10 @@
 {
-  "name": "@daniel-nagy/transporter",
+  "name": "@will-ks/transporter",
   "type": "module",
   "version": "1.0.0-beta.6",
   "description": "Typesafe distributed computing in TypeScript.",
   "author": "Daniel Nagy <1622446+daniel-nagy@users.noreply.github.com>",
-  "repository": "github:daniel-nagy/transporter",
+  "repository": "github:will-ks/transporter",
   "license": "Apache-2.0",
   "keywords": [
     "client",
