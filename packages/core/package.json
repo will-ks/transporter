@@ -1,7 +1,7 @@
 {
   "name": "@will-ks/transporter",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Typesafe distributed computing in TypeScript.",
   "author": "Daniel Nagy <1622446+daniel-nagy@users.noreply.github.com>",
   "repository": "github:will-ks/transporter",
@@ -22,12 +22,6 @@
   ],
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
-  "exports": {
-    "./*": "./build/*.js",
-    "./*.js": "./build/*.js",
-    "./Observable": "./build/Observable/index.js",
-    "./Observable/index.js": "./build/Observable/index.js"
-  },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
