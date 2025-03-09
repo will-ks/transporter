@@ -1,7 +1,7 @@
 {
   "name": "@will-ks/transporter",
   "type": "module",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.2",
   "description": "Typesafe distributed computing in TypeScript.",
   "author": "Daniel Nagy <1622446+daniel-nagy@users.noreply.github.com>",
   "repository": "github:will-ks/transporter",
@@ -20,6 +20,8 @@
     "build",
     "!.tsinfo"
   ],
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "exports": {
     "./*": "./build/*.js",
     "./*.js": "./build/*.js",
