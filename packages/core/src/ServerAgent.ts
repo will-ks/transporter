@@ -35,7 +35,8 @@ class ServerAgent extends Fiber.t {
     private readonly input: Input,
     private readonly output: Output,
     public readonly value: unknown,
-    public readonly injector?: Injector.t
+    public readonly injector?: Injector.t,
+    private readonly onError?: (err: unknown) => void
   ) {
     super();
 
@@ -109,6 +110,7 @@ class ServerAgent extends Fiber.t {
             })
           );
         } catch (error) {
+          this.onError?.(error);
           if (message.noReply) return;
 
           this.output.next(
@@ -135,6 +137,7 @@ export interface Options {
   input: Input;
   output: Output;
   provide: unknown;
+  onError?: (err: unknown) => void;
 }
 
 /**
@@ -147,7 +150,8 @@ export function init({
   input,
   output,
   provide: value,
-  injector
+  injector,
+  onError
 }: Options): ServerAgent {
   return new ServerAgent(
     address,
@@ -156,6 +160,7 @@ export function init({
     input,
     output,
     value,
-    injector
+    injector,
+    onError
   );
 }

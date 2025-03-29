@@ -114,7 +114,8 @@ export abstract class Session<
   protected createServer(
     this: Session,
     provide: unknown,
-    address: string = UUID.v4()
+    address: string = UUID.v4(),
+    onError?: (error: unknown) => void,
   ): ServerAgent.t {
     const serverAgent = ServerAgent.init({
       address,
@@ -123,7 +124,8 @@ export abstract class Session<
       injector: this.injector,
       input: this.#input.asObservable(),
       output: this.#output,
-      provide
+      provide,
+      onError
     });
 
     this.observe(serverAgent);
@@ -238,10 +240,11 @@ export class ServerSession<DataType, Value> extends Session<DataType, Value> {
   constructor(
     public readonly injector: Injector.t | undefined,
     public readonly protocol: Subprotocol<DataType, Value>,
-    public readonly value: Value
+    public readonly value: Value,
+    onError?: (error: unknown) => void
   ) {
     super(protocol, injector);
-    this.createServer(value, ROOT_AGENT_ADDRESS);
+    this.createServer(value, ROOT_AGENT_ADDRESS, onError);
   }
 }
 
@@ -292,6 +295,7 @@ export function client<const DataType, Value>({
 export interface ServerOptions<Protocol, Value>
   extends Options<Protocol, Value> {
   provide: Value;
+  onError: (err: unknown) => void;
 }
 
 /**
@@ -300,9 +304,10 @@ export interface ServerOptions<Protocol, Value>
 export function server<DataType, Value>({
   injector,
   protocol,
-  provide: value
+  provide: value,
+  onError,
 }: ServerOptions<DataType, Value>): ServerSession<DataType, Value> {
-  return new ServerSession(injector, protocol, value);
+  return new ServerSession(injector, protocol, value, onError);
 }
 
 /**
